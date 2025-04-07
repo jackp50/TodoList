@@ -1,3 +1,39 @@
 #container {
     border: 3px solid green;
+    width: 90vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 4fr .5fr;
+    grid-template-areas: 
+    "side-bar main new-project new-list";
+}
+
+#side-bar {
+    background-color: chocolate;
+    grid-area: side-bar;
+
+}
+
+#main {
+    background-color: blue;
+    grid-area: main;
+}
+
+#new-project {
+    background-color: green;
+    grid-area: new-project;
+    grid-column: 1 / 2;
+    grid-row: 2 / -1 ;
+}
+
+#new-list {
+    background-color: red;
+    grid-area: new-list;
+    grid-column: 2 / -1;
+    grid-row: 2 / -1;
+}
+
+.todo-item {
+    border: 3px solid red;
 }
