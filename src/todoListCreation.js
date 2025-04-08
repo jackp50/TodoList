@@ -1,7 +1,7 @@
 export let toDoArray = [];
     //constructor for todoItem
     class toDoItem {
-        constructor(id, title, description, dueDate, priority, completed) {
+        constructor(title, description, dueDate, priority, completed) {
             this.id = crypto.randomUUID();
             this.title = title;
             this.description = description;
@@ -33,7 +33,7 @@ export let toDoArray = [];
                 <p>${todo.description}</p>
                 <p>Due: ${todo.dueDate}</p>
                 <p>Priority: ${todo.priority}</p>
-                <p>Completed: ${todo.completed ? "Yes" : "No"}</p>
+                <p>Status: ${todo.completed ? "Completed" : "Uncompleted"}</p>
             `;
             todoElement.appendChild(deleteButton);
             main.appendChild(todoElement);
@@ -42,10 +42,10 @@ export let toDoArray = [];
 
      // add an item to the toDo list
     export function addToDo(id, title, description, dueDate, priority, completed) {
-    const newToDo = new toDoItem(id, title, description, dueDate, priority, completed);
-    toDoArray.push(newToDo);
-    console.log(toDoArray);
-    displayToDos();
+        const newToDo = new toDoItem(id, title, description, dueDate, priority, completed);
+        toDoArray.push(newToDo);
+        console.log(toDoArray);
+        displayToDos();
     }
 
     //delete item function

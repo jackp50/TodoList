@@ -3,10 +3,21 @@ import { addListButton } from "./home";
 
 export function listCreationForm() {
 
+
     const dialog = document.createElement('dialog');
     document.body.appendChild(dialog);
     const form = document.createElement('form');
     dialog.appendChild(form);
+
+    // close button
+    const closeButton = document.createElement('button');
+    closeButton.classList.add("cursor-pointer");
+    closeButton.textContent = "✖";
+    closeButton.classList.add("close-button");
+    closeButton.addEventListener("click", () => {
+        dialog.close();
+    });
+    dialog.appendChild(closeButton);
     // title input
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
@@ -22,7 +33,7 @@ export function listCreationForm() {
     descriptionInput.placeholder = 'Description';
     descriptionInput.required = true;
     form.appendChild(descriptionInput);
-
+    
     //dueDate input
     const dueDateInput = document.createElement('input');
     dueDateInput.type = 'text';
@@ -66,26 +77,30 @@ export function listCreationForm() {
     completedLabel.appendChild(completedCheckbox);
     form.appendChild(completedLabel);
 
-    //submitButton
-    const submitButton = document.createElement('button', { type: 'submit' }, 'Submit');
+    //submit button
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Submit";
     form.appendChild(submitButton);
 
      // Add event listeners
     //  loadHome();
      addListButton.addEventListener("click", () => {
-        dialog.showModal(); // Opens the dialog as a modal
+        console.log("Button Clicked!");
+        dialog.showModal();
     });
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
+       
     
         // Get values from user input fields
         const title = titleInput.value;
         const description = descriptionInput.value;
         const dueDate = dueDateInput.value;
         const priority = prioritySelect.value;
-        const completed = completedCheckbox.value;
-    
+        const completed = completedCheckbox.checked ? true : false;
+
         // Debugging: Confirm values
         console.log("Title:", title);
         console.log("Description:", description);
@@ -95,8 +110,8 @@ export function listCreationForm() {
     
         // Call addToDo with user input values
         addToDo(title, description, dueDate, priority, completed);
-        form.reset();
         dialog.close();
+        form.reset();
     });
 
 }

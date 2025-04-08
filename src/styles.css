@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 #container {
     border: 3px solid green;
     width: 90vw;
@@ -37,3 +39,8 @@
 .todo-item {
     border: 3px solid red;
 }
+
+.close-button {
+
+}
+

@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 import { toDoArray } from "./todoListCreation";
 import { displayToDos } from "./todoListCreation";
 export let addListButton;
@@ -21,6 +22,15 @@ export function loadHome() {
     container.appendChild(newList);
 
     addListButton = document.createElement("button");
+    addListButton.classList.add(
+        "bg-blue-500", 
+        "hover:bg-blue-700", 
+        "text-white", 
+        "font-bold", 
+        "py-2", 
+        "px-4", 
+        "rounded-full"
+    );
     addListButton.id = "new-todo-list";
     newList.appendChild(addListButton);
     addListButton.innerHTML = "Add new ToDo list item";
