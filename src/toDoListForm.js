@@ -1,117 +1,128 @@
 import { addToDo } from "./todoListCreation";
 import { addListButton } from "./home";
+import "./styles.css";
+
+
+function createInput(labelText, type, name, placeholder) {
+    const container = document.createElement("div");
+    container.classList.add("input-container");
+
+    const label = document.createElement("label");
+    label.textContent = labelText;
+    label.classList.add("input-label");
+
+    const input = document.createElement("input");
+    input.type = type;
+    input.name = name;
+    input.required = true;
+    input.placeholder = placeholder;
+    input.classList.add("input-field");
+
+    container.appendChild(label);
+    container.appendChild(input);
+    return container;
+}
 
 export function listCreationForm() {
+    // Check if form already exists
+    let formContainer = document.getElementById("todo-form");
 
+    // ✅ If it doesn't exist, create it when the script runs (not on first button click)
+    if (!formContainer) {
+        formContainer = document.createElement("div");
+        formContainer.id = "todo-form";
+        formContainer.classList.add("form-container");
+        formContainer.style.display = "none"; // ✅ Hidden initially
+        document.body.appendChild(formContainer);
 
-    const dialog = document.createElement('dialog');
-    document.body.appendChild(dialog);
-    const form = document.createElement('form');
-    dialog.appendChild(form);
+        const form = document.createElement("form");
+        form.classList.add("dialog-form");
+        formContainer.appendChild(form);
 
-    // close button
-    const closeButton = document.createElement('button');
-    closeButton.classList.add("cursor-pointer");
-    closeButton.textContent = "✖";
-    closeButton.classList.add("close-button");
-    closeButton.addEventListener("click", () => {
-        dialog.close();
-    });
-    dialog.appendChild(closeButton);
-    // title input
-    const titleInput = document.createElement('input');
-    titleInput.type = 'text';
-    titleInput.name = 'title';
-    titleInput.placeholder = 'Title';
-    titleInput.required = true;
-    form.appendChild(titleInput);
+        // Close button (Hides the form when clicked)
+        const closeButton = document.createElement("button");
+        closeButton.textContent = "✖";
+        closeButton.classList.add("close-button");
+        closeButton.addEventListener("click", () => {
+            form.reset(); // ✅ Reset form fields
+            formContainer.style.display = "none"; // ✅ Hide form on close
+        });
+        form.appendChild(closeButton);
 
-    //description input
-    const descriptionInput = document.createElement('input');
-    descriptionInput.type = 'text';
-    descriptionInput.name = 'description';
-    descriptionInput.placeholder = 'Description';
-    descriptionInput.required = true;
-    form.appendChild(descriptionInput);
-    
-    //dueDate input
-    const dueDateInput = document.createElement('input');
-    dueDateInput.type = 'text';
-    dueDateInput.name = 'dueDate';
-    dueDateInput.placeholder = 'Due Date';
-    dueDateInput.required = true;
-    form.appendChild(dueDateInput);
+        // Create input fields
+        form.appendChild(createInput("Title", "text", "title", "Enter title"));
+        form.appendChild(createInput("Description", "text", "description", "Enter description"));
+        form.appendChild(createInput("Due Date", "text", "dueDate", "Enter due date"));
 
-    //priority input
-    const prioritySelect = document.createElement('select');
-    prioritySelect.name = 'priority';
-    prioritySelect.required = true;
+        // Priority dropdown
+        const priorityContainer = document.createElement("div");
+        priorityContainer.classList.add("input-container");
 
-    // Placeholder option
-    const placeholderOption = document.createElement('option');
-    placeholderOption.textContent = "Select Priority";
-    placeholderOption.value = "";
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    prioritySelect.appendChild(placeholderOption);
+        const priorityLabel = document.createElement("label");
+        priorityLabel.textContent = "Priority";
+        priorityLabel.classList.add("input-label");
 
-    // Priority options
-    const priorityOptions = ["High", "Medium", "Low"];
-    priorityOptions.forEach(optionText => {
-        const option = document.createElement('option');
-        option.value = optionText.toLowerCase();
-        option.textContent = optionText;
-     prioritySelect.appendChild(option);
-    });
+        const prioritySelect = document.createElement("select");
+        prioritySelect.name = "priority";
+        prioritySelect.required = true;
+        prioritySelect.classList.add("select-field");
 
-    form.appendChild(prioritySelect);
+        const priorityOptions = ["High", "Medium", "Low"];
+        priorityOptions.forEach(optionText => {
+            const option = document.createElement("option");
+            option.value = optionText.toLowerCase();
+            option.textContent = optionText;
+            prioritySelect.appendChild(option);
+        });
 
-    //completed input
-    const completedLabel = document.createElement('label');
-    completedLabel.textContent = "Completed";
+        priorityContainer.appendChild(priorityLabel);
+        priorityContainer.appendChild(prioritySelect);
+        form.appendChild(priorityContainer);
 
-    const completedCheckbox = document.createElement('input');
-    completedCheckbox.type = 'checkbox';
-    completedCheckbox.name = 'completed';
+        // Completed checkbox
+        const completedContainer = document.createElement("div");
+        completedContainer.classList.add("input-container");
 
-    completedLabel.appendChild(completedCheckbox);
-    form.appendChild(completedLabel);
+        const completedLabel = document.createElement("label");
+        completedLabel.textContent = "Completed";
+        completedLabel.classList.add("input-label");
 
-    //submit button
-    const submitButton = document.createElement("button");
-    submitButton.type = "submit";
-    submitButton.textContent = "Submit";
-    form.appendChild(submitButton);
+        const completedCheckbox = document.createElement("input");
+        completedCheckbox.type = "checkbox";
+        completedCheckbox.name = "completed";
+        completedCheckbox.classList.add("ml-2");
 
-     // Add event listeners
-    //  loadHome();
-     addListButton.addEventListener("click", () => {
-        console.log("Button Clicked!");
-        dialog.showModal();
-    });
+        completedContainer.appendChild(completedLabel);
+        completedContainer.appendChild(completedCheckbox);
+        form.appendChild(completedContainer);
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-       
-    
-        // Get values from user input fields
-        const title = titleInput.value;
-        const description = descriptionInput.value;
-        const dueDate = dueDateInput.value;
-        const priority = prioritySelect.value;
-        const completed = completedCheckbox.checked ? true : false;
+        // Submit button
+        const submitButton = document.createElement("button");
+        submitButton.type = "submit";
+        submitButton.textContent = "Submit";
+        submitButton.classList.add("submit-button");
+        form.appendChild(submitButton);
 
-        // Debugging: Confirm values
-        console.log("Title:", title);
-        console.log("Description:", description);
-        console.log("Due Date:", dueDate);
-        console.log("Priority:", priority);
-        console.log("Completed:", completed);
-    
-        // Call addToDo with user input values
-        addToDo(title, description, dueDate, priority, completed);
-        dialog.close();
-        form.reset();
-    });
+        // Form submission logic
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
 
+            // Capture values
+            const title = form.querySelector('[name="title"]').value;
+            const description = form.querySelector('[name="description"]').value;
+            const dueDate = form.querySelector('[name="dueDate"]').value;
+            const priority = prioritySelect.value;
+            const completed = completedCheckbox.checked;
+
+            console.log("New To-Do:", { title, description, dueDate, priority, completed });
+
+            // Reset form and hide it
+            addToDo(title, description, dueDate, priority, completed);
+            form.reset();
+            formContainer.style.display = "none"; // ✅ Hide form after submission
+        });
+    }
+
+    // ✅ Now, clicking the button simply toggles visibility
+    formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
 }

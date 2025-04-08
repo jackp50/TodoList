@@ -23,13 +23,8 @@ export function loadHome() {
 
     addListButton = document.createElement("button");
     addListButton.classList.add(
-        "bg-blue-500", 
-        "hover:bg-blue-700", 
-        "text-white", 
-        "font-bold", 
-        "py-2", 
-        "px-4", 
-        "rounded-full"
+        "bg-green-500", "hover:bg-green-700", "text-white", "font-bold",
+        "py-2", "px-4", "rounded-full"
     );
     addListButton.id = "new-todo-list";
     newList.appendChild(addListButton);

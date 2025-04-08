@@ -14,7 +14,6 @@
 #side-bar {
     background-color: chocolate;
     grid-area: side-bar;
-
 }
 
 #main {
@@ -26,7 +25,7 @@
     background-color: green;
     grid-area: new-project;
     grid-column: 1 / 2;
-    grid-row: 2 / -1 ;
+    grid-row: 2 / -1;
 }
 
 #new-list {
@@ -40,7 +39,104 @@
     border: 3px solid red;
 }
 
-.close-button {
-
+/* General Form Styling */
+.form-container {
+    display: none; /* ✅ Starts hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.dialog-form {
+    width: 100%;
+    max-width: 32rem;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: #6B7280;
+    color: white;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+.close-button:hover {
+    background-color: #374151;
+}
+
+/* Input Fields */
+.input-container {
+    width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+.input-label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #374151;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.input-field {
+    appearance: none;
+    display: block;
+    width: 100%;
+    background-color: #E5E7EB;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    line-height: 1.5;
+}
+.input-field:focus {
+    outline: none;
+    background-color: white;
+    border-color: #6B7280;
+}
+
+/* Select Dropdown */
+.select-field {
+    display: block;
+    appearance: none;
+    width: 100%;
+    background-color: #E5E7EB;
+    border: 1px solid #D1D5DB;
+    color: #374151;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+}
+.select-field:focus {
+    outline: none;
+    background-color: white;
+    border-color: #6B7280;
+}
+
+/* Submit Button */
+.submit-button {
+    background-color: #3B82F6;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    outline: none;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.submit-button:hover {
+    background-color: #1E40AF;
+}
