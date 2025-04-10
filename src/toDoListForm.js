@@ -27,25 +27,24 @@ export function listCreationForm() {
     // Check if form already exists
     let formContainer = document.getElementById("todo-form");
 
-    // ✅ If it doesn't exist, create it when the script runs (not on first button click)
     if (!formContainer) {
         formContainer = document.createElement("div");
         formContainer.id = "todo-form";
         formContainer.classList.add("form-container");
-        formContainer.style.display = "none"; // ✅ Hidden initially
+        formContainer.style.display = "none"; 
         document.body.appendChild(formContainer);
 
         const form = document.createElement("form");
         form.classList.add("dialog-form");
         formContainer.appendChild(form);
 
-        // Close button (Hides the form when clicked)
+        // Close button
         const closeButton = document.createElement("button");
         closeButton.textContent = "✖";
         closeButton.classList.add("close-button");
         closeButton.addEventListener("click", () => {
-            form.reset(); // ✅ Reset form fields
-            formContainer.style.display = "none"; // ✅ Hide form on close
+            form.reset(); 
+            formContainer.style.display = "none";
         });
         form.appendChild(closeButton);
 
@@ -119,10 +118,8 @@ export function listCreationForm() {
             // Reset form and hide it
             addToDo(title, description, dueDate, priority, completed);
             form.reset();
-            formContainer.style.display = "none"; // ✅ Hide form after submission
+            formContainer.style.display = "none";
         });
     }
-
-    // ✅ Now, clicking the button simply toggles visibility
     formContainer.style.display = formContainer.style.display === "none" ? "block" : "none";
 }

@@ -21,6 +21,14 @@ export let toDoArray = [];
             const todoElement = document.createElement("div");
             todoElement.classList.add("todo-item");
 
+        //edit button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => {
+            openEditForm(index);
+        });
+
+
         //delete button
          // Create delete button
          const deleteButton = document.createElement("button");
@@ -37,6 +45,7 @@ export let toDoArray = [];
             `;
             todoElement.appendChild(deleteButton);
             main.appendChild(todoElement);
+            todoElement.appendChild(editButton);
         });
     }
 
@@ -54,3 +63,33 @@ export let toDoArray = [];
         displayToDos(); 
     }
 
+
+    //edit button function
+    function openEditForm(index) {
+        const todo = toDoArray[index];
+    
+        document.querySelector('[name="title"]').value = todo.title;
+        document.querySelector('[name="description"]').value = todo.description;
+        document.querySelector('[name="dueDate"]').value = todo.dueDate;
+        document.querySelector('[name="priority"]').value = todo.priority;
+        document.querySelector('[name="completed"]').checked = todo.completed;
+    
+        document.getElementById("todo-form").style.display = "block";
+    
+        const submitButton = document.querySelector(".submit-button");
+        submitButton.textContent = "Update";
+        submitButton.onclick = function(event) {
+            event.preventDefault();
+            
+            // Update the item in the array
+            todo.title = document.querySelector('[name="title"]').value;
+            todo.description = document.querySelector('[name="description"]').value;
+            todo.dueDate = document.querySelector('[name="dueDate"]').value;
+            todo.priority = document.querySelector('[name="priority"]').value;
+            todo.completed = document.querySelector('[name="completed"]').checked;
+    
+            displayToDos();
+            document.getElementById("todo-form").style.display = "none";
+            submitButton.textContent = "Submit"; // Reset button text
+        };
+    }
